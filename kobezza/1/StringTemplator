@@ -1,0 +1,7 @@
+function format(str, params) {
+    return str.replace(/\${(.+?)}/g, (_, expr) => {
+        return Function(...Object.keys(params), `return ${expr}`)(...Object.values(params))
+    })
+}
+
+console.log(format('Hello ${name}! May age is ${age * 2}.', { name: 'Bob', age: 12 })) // 'Hello Bob! My age is 24.'
