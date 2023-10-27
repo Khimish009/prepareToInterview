@@ -1,0 +1,16 @@
+var val = Promise.resolve(1);
+var arr = [1, 2, 3];
+
+for (var i = 0; i < arr.length; ++i) {
+  val = val.then((val) => val + arr[i]);
+}
+val.then(console.log);
+
+Как лечить:
+1) заменить var на let
+2) обернуть в IIFE функцию
+for (var i = 0; i < arr.length; ++i) {
+  (function (i) {
+    val = val.then((val) => val + arr[i]);
+  })(i);
+}
