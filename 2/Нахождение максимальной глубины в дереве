@@ -1,0 +1,44 @@
+const obj = {
+  value: "foo",
+  children: [
+    {
+      value: "bar",
+    },
+
+    {
+      value: "bla",
+      children: [
+        {
+          value: "baz",
+          children: [
+            {
+              value: "buzz",
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+
+function maxDepth(root) {
+  let maxDepth = 0;
+
+  function calcDepth(node, startDepth = 0) {
+    node.children?.forEach((node) => {
+      const depth = calcDepth(node, startDepth + 1);
+
+      if (depth > maxDepth) {
+        maxDepth = depth;
+      }
+    });
+
+    return startDepth;
+  }
+
+  calcDepth(root);
+
+  return maxDepth;
+}
+
+console.log(maxDepth(obj)); // 3
