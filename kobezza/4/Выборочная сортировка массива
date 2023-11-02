@@ -1,0 +1,20 @@
+function sort(nums) {
+  const positions = []
+  const values = []
+
+  for (const [position, value] of nums.entries()) {
+    if (value % 2 === 0) {
+      positions.push(position)
+      values.push(value)
+    }
+  }
+
+  values.sort((a, b) => a - b).forEach((value, index) => {
+    nums[positions[index]] = value
+  })
+
+  return nums
+}
+
+
+console.log(sort([7, 1, 4, 2, 9, 8])); // [7, 1, 2, 4, 9, 8]
