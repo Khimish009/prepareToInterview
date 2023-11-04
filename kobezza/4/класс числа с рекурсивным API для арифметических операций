@@ -1,0 +1,50 @@
+class MyNumber {
+  #num;
+
+  constructor(num) {
+    this.#num = num;
+  }
+
+  // Second solution:
+  // [Symbol.toPrimitive](hint) {
+  //   if (hint === "string") {
+  //     return this.#num.toString();
+  //   }
+
+  //   return this.#num;
+  // }
+
+  toString() {
+    // First solution:
+    return this.#num.toString();
+  }
+
+  valueOf() {
+    // First solution:
+    return this.#num;
+  }
+
+  add(value) {
+    this.#num += value;
+    return this;
+  }
+
+  sub(value) {
+    this.#num -= value;
+    return this;
+  }
+
+  mult(value) {
+    this.#num *= value;
+    return this;
+  }
+
+  div(value) {
+    this.#num /= value;
+    return this;
+  }
+}
+
+const num = new MyNumber(10);
+
+console.log(num.add(2).mult(2).sub(1) - 5); // 18
