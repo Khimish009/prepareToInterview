@@ -1,0 +1,45 @@
+function laugh() {
+  console.log('Ha-ha!')
+}
+
+function debounce(fn, delay) {
+  let timer
+
+  return (...args) => {
+    if (timer) {
+      clearTimeout(timer)
+    }
+
+    timer = setTimeout(() => {
+      fn.apply(this, args)
+    }, delay)
+  }
+}
+
+const debouncedLaugh = debounce(laugh, 300);
+
+debouncedLaugh();
+debouncedLaugh();
+debouncedLaugh();
+debouncedLaugh();
+debouncedLaugh();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
