@@ -1,0 +1,30 @@
+console.log(isValid('(hello{world} and [me])'));  // true
+console.log(isValid('(hello{world)} and [me])')); // false
+console.log(isValid(')'));                        // false
+
+
+function isValid(str) {
+    const stack = []
+    const brackets = new Set(['(', ')', '[', ']', '{', '}'])
+    const obj = {
+        ')': '(',   
+        ']': '[',
+        '}': '{',
+    }
+
+    for(const char of str) {
+        if(!brackets.has(char)) {
+            continue
+        }
+
+        if(obj[char]) {
+            if(obj[char] !== stack.pop()) {
+                return false
+            }
+        } else {
+            stack.push(char)
+        }
+    }
+
+    return stack.length === 0
+}
