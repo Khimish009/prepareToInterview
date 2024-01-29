@@ -1,0 +1,27 @@
+console.log(find('kbza', [
+  'kobezzza',
+  'bob',
+  'kibiza',
+  'kobea'
+])); // ['kobezzza', 'kibiza']
+
+function find(pattern, words) {
+  return words.filter(str => checkPattern(pattern, str))
+
+  function checkPattern(pattern, str) {
+    const patternIter = pattern[Symbol.iterator]()
+    let activePatternChar = patternIter.next()
+
+    for (const char of str) {
+      if (char === activePatternChar.value) {
+        activePatternChar = patternIter.next()
+      }
+
+      if (activePatternChar.done) {
+        break
+      }
+    }
+
+    return activePatternChar.done
+  }
+}
