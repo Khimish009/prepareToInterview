@@ -1,0 +1,17 @@
+Recursively
+function flat(arr, depth = 1) {
+  const result = []
+
+  arr.forEach(element => {
+    if (!Array.isArray(element) || depth <= 0) {
+      result.push(element)
+    } else {
+      result.push(...flat(element, depth - 1))
+    }
+  });
+
+  return result
+}
+
+console.dir(flat([[1, 2], [[1]], 2]));    // [1, 2, [1], 2]
+console.dir(flat([[1, 2], [[1]], 2], 2)); // [1, 2, 1, 2]
