@@ -15,3 +15,27 @@ function flat(arr, depth = 1) {
 
 console.dir(flat([[1, 2], [[1]], 2]));    // [1, 2, [1], 2]
 console.dir(flat([[1, 2], [[1]], 2], 2)); // [1, 2, 1, 2]
+
+Stack
+function flat(arr, depth = 1) {
+  const result = []
+  const stack = [
+    [depth, arr[Symbol.iterator]()]
+  ]
+
+  while (stack.length > 0) {
+    const [depth, iter] = stack.pop()
+
+    for (el of iter) {
+      if (!Array.isArray(el) || depth <= 0) {
+        result.push(el)
+      } else {
+        stack.push([depth, iter])
+        stack.push([depth - 1, el[Symbol.iterator]()])
+        break
+      }
+    }
+  }
+
+  return result
+}
