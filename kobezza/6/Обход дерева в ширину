@@ -1,0 +1,31 @@
+const tree = {
+  value: 1,
+  children: [
+    {
+      value: 2,
+      children: [{ value: 4 }]
+    },
+    {
+      value: 3
+    }
+  ]
+};
+
+function log(tree) {
+  const queue = [tree]
+  const result = []
+
+  while (queue.length > 0) {
+    const head = queue.shift()
+
+    result.push(head.value)
+
+    head.children?.forEach(children => {
+      queue.push(children)
+    });
+  }
+
+  return result
+}
+
+console.log(log(tree)); // 1 2 3 4
