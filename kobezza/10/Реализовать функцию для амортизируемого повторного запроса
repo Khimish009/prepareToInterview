@@ -1,0 +1,27 @@
+retry(() => fetch('//some-data'), { retry: 3, delay: (n) => n * 1000 }).then(console.log, console.error);
+
+function retry(fn, { retry, delay }) {
+  return new Promise((resolve, reject) => {
+    let count = 0
+
+    execute()
+
+    function doRetry(err) {
+      if (retry-- <= 0) {
+        reject(err)
+        return
+      } else {
+        setTimeout(execute, delay(++count))
+      }
+    }
+
+    function execute() {
+      try {
+        Promise.resolve(fn()).then(resolve).catch(doRetry)
+      } catch (err) {
+        doRetry(err)
+      }
+    }
+  })
+}
+
