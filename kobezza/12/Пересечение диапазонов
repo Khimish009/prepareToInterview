@@ -1,0 +1,49 @@
+function intersectRanges(ranges1, ranges2) {
+  ranges1 = normalize(ranges1)
+  ranges2 = normalize(ranges2)
+  let pointer1 = 0
+  let pointer2 = 0
+  const result = []
+
+  while(pointer1 < ranges1.length && pointer2 < ranges2.length) {
+    const range1 = ranges1[pointer1]
+    const range2 = ranges2[pointer2]
+    const intersection = getIntersection(range1, range2)
+
+    if(intersection !== null) {
+      result.push(intersection)
+    }
+
+    if(range1[1] < range2[1]) {
+      pointer1++
+      continue
+    }
+
+    if(range1[1] > range2[1]) {
+      pointer2++
+      continue
+    }
+
+    pointer1++
+    pointer2++
+  }
+
+  return result
+
+  function getIntersection([left1, right1], [left2, right2]) {
+    const left = Math.max(left1, left2)
+    const right = Math.min(right1, right2)
+
+    if(left <= right) {
+      return [left, right]
+    }
+
+    return null
+  }
+
+  function normalize(ranges) {
+    return ranges.split(/;\s?/).map(range => range.split('-').map(el => parseInt(el)))
+  }
+}
+
+console.log(intersectRanges('1-2; 4-6; 9-11', '1-5; 10-14; 15')); // 1-2; 4-5; 10-11 
