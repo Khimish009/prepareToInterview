@@ -1,0 +1,26 @@
+function getUniqueStrs(arr) {
+  const hashMap = new Map()
+
+  for (const str of arr) {
+    let key = new Array(26).fill(0)
+
+    for (const char of str) {
+      const index = char.toLowerCase().charCodeAt() - 97
+
+      key[index]++
+    }
+
+    key = key.toString()
+
+    if (!hashMap.has(key)) {
+      hashMap.set(key, { count: 0, str })
+    }
+
+    hashMap.get(key).count++
+  }
+
+  return [...hashMap.values()].filter(({ count }) => count === 1).map(({ str }) => str)
+}
+
+
+console.log(getUniqueStrs(['atoe', 'otea', 'ben', 'enb', 'baz', 'foo'])); // ['baz', 'foo']
