@@ -1,0 +1,34 @@
+function laugh(index) {
+  console.log('Ha-ha!', index)
+}
+
+const throttledLaugh = throttle(laugh, 300);
+
+
+function throttle(fn, delay) {
+  let lastArgs
+  let timerId = null
+
+  return function wrapper(...args) {
+    lastArgs = args
+
+    if (timerId === null) {
+      fn.apply(this, args)
+
+      timerId = setTimeout(() => {
+        clearTimeout(timerId)
+        timerId = null
+
+        if (lastArgs !== args) {
+          wrapper(...lastArgs)
+        }
+      }, delay)
+    }
+  }
+}
+
+throttledLaugh(1);
+throttledLaugh(2);
+setTimeout(() => throttledLaugh(3), 500)
+throttledLaugh(4);
+throttledLaugh(5);
