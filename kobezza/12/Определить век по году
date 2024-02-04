@@ -1,0 +1,10 @@
+function getCentury(year) {
+  return Math.floor((year - 1) / 100) + 1
+}
+
+console.log(getCentury(1900)); // 19
+console.log(getCentury(1901)); // 20
+console.log(getCentury(1678)); // 17
+console.log(getCentury(1)); // 1
+console.log(getCentury(999)); // 10
+console.log(getCentury(2024)); // 21
